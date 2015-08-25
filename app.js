@@ -31,7 +31,11 @@ angular.module('app', [])
 		return {
 			restrict: 'E',
 			transclude: true,
-			scope: {},
+			scope: {
+				 type: '@',
+  				vertical: '@',
+  				justified: '@'
+			},
 			templateUrl: 'tabset.html',
 			bindToController: true,
 			//controllerAs allows us to bind properties directly to the controller object using this and have them accessible via tabset in the template
@@ -40,6 +44,11 @@ angular.module('app', [])
 			controller: function(){
 				var self = this
 				self.tabs = []
+				self.classes = {}
+				if(self.type === 'pills') { self.classes['nav-pills'] = true}
+				else { self.classes['nav-tabs'] = true }
+				if(self.justified) { self.classes['nav-justified'] = true }
+				if(self.vertical) { self.classes['nav-stacked'] = true }
 				//this method will append a tab to the self.tabs array.
 				self.addTab = function addTab(tab){
 					self.tabs.push(tab)
